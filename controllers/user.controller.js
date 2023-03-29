@@ -15,9 +15,7 @@ const createUser = async (req, res, next) => {
 
 const loginUser = async (req, res, next) => {
     try {
-        // console.log("TUKA", req)
         passport.authenticate('local', { session: false }, (err, user, info) => {
-            // console.log('user', user)
             if (err || !user) {
                 return res.status(400).json({
                     message: 'Something is not right',

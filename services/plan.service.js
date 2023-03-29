@@ -1,3 +1,4 @@
+const moment = require('moment')
 const prisma = require('../prisma/prisma-client')
 
 const create = async (data) => {
@@ -22,8 +23,8 @@ const edit = async (data) => {
         data: {
             title: data.title,
             description: data.description,
-            startDate: data.startDate,
-            endDate: data.endDate,
+            startDate: new Date(data.startDate),
+            endDate: new Date(data.endDate),
         }
     })
     return results
@@ -87,21 +88,40 @@ const listPlansByCoach = async (data) => {
     return results
 }
 
-const subscribe = async (data) => {
-    const user = await prisma.user.findFirst({
-        select: {
-            role: true
-        },
+const subscribe = async (data, user) => {
+
+    if (user.role === 'coach') {
+        throw new Error("Coaches cannot subscribe to a plan", 400)
+    }
+    const plan = await prisma.plan.findFirst({
         where: {
             id: parseInt(data.planId)
         }
     })
-    if (user.role === 'coach') {
-        throw new Error("Coaches cannot subscribe to a plan", 400)
+
+    if (plan) {
+        if (!moment().isBetween(moment(plan.startDate), moment(plan.endDate))) {
+            throw new Error("Cannot subscribe to an inactive plan", 400)
+        }
+
+    } else {
+        throw new Error("The plan doesn't exist", 400)
     }
+
+    const exist = await prisma.plansWithUsers.findFirst({
+        where: {
+            userId: parseInt(user.id),
+            planId: parseInt(data.planId)
+        }
+    })
+
+    if (exist) {
+        throw new Error("Already subscribed", 400)
+    }
+
     const results = await prisma.plansWithUsers.create({
         data: {
-            userId: data.userId,
+            userId: parseInt(user.id),
             planId: parseInt(data.planId)
         }
     })

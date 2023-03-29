@@ -1,13 +1,13 @@
 const router = require('express').Router()
 const PlanController = require('../controllers/plan.controller')
 const { validateBody } = require('../middlewares/validator.middleware')
-const { createPlanSchemaValidation } = require('../utils/validations/plan.validation')
+const { createPlanSchemaValidation, editPlanSchemaValidation } = require('../utils/validations/plan.validation')
 
 router
     .route('/')
     .get(PlanController.listPlans)
     .post(validateBody(createPlanSchemaValidation), PlanController.createPlan)
-    .put(PlanController.editPlan)
+    .put(validateBody(editPlanSchemaValidation), PlanController.editPlan)
     .delete(PlanController.deletePlan)
 
 router

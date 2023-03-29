@@ -15,11 +15,9 @@ const coachReviews = async (req, res, next) => {
 
 const subscriberReviews = async (req, res, next) => {
     try {
-        const results = await ReviewService.readForSubscribers();
+        const results = await ReviewService.readForSubscribers(req.user);
         return res.status(200).json({ message: "All reviews for expired plans", results });
     } catch (error) {
-        error.code = 401;
-        console.log(error)
         next(error)
     }
 }
@@ -27,7 +25,7 @@ const subscriberReviews = async (req, res, next) => {
 const createReview = async (req, res, next) => {
     try {
         const data = req.body;
-        const results = await ReviewService.create(data);
+        const results = await ReviewService.create(data, req.user);
         return res.status(200).json({ message: "Review was created", results });
     } catch (error) {
         next(error)

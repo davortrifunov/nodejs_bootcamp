@@ -2,6 +2,9 @@ const PlanService = require('../services/plan.service')
 
 const createPlan = async (req, res, next) => {
     try {
+        if (req.user.role == 'Subscriber') {
+            return res.status(400).json({ message: "Subscribers cannot create a plan" })
+        }
         const data = req.body
         const results = await PlanService.create(data)
         return res.status(200).json({ message: "Plan was created", results })
@@ -13,6 +16,9 @@ const createPlan = async (req, res, next) => {
 
 const editPlan = async (req, res, next) => {
     try {
+        if (req.user.role == 'Subscriber') {
+            return res.status(400).json({ message: "Subscribers cannot edit a plan" })
+        }
         const data = req.body
         const results = await PlanService.edit(data)
         return res.status(200).json({ message: "Plan was edited", results })
@@ -24,6 +30,9 @@ const editPlan = async (req, res, next) => {
 
 const deletePlan = async (req, res, next) => {
     try {
+        if (req.user.role == 'Subscriber') {
+            return res.status(400).json({ message: "Subscribers cannot delete a plan" })
+        }
         const data = req.body
         const results = await PlanService.deletePlan(data)
         return res.status(200).json({ message: "Plan was deleted", results })
@@ -34,6 +43,9 @@ const deletePlan = async (req, res, next) => {
 
 const listSubscribers = async (req, res, next) => {
     try {
+        if (req.user.role == 'Subscriber') {
+            return res.status(400).json({ message: "Subscribers cannot see subs to a plan" })
+        }
         const data = req.body
         const results = await PlanService.listSubscribers(data)
         return res.status(200).json({ message: "Subscribers: ", results })
@@ -68,10 +80,9 @@ const listPlansByCoach = async (req, res, next) => {
 const subscribe = async (req, res, next) => {
     try {
         const data = req.body
-        const results = await PlanService.subscribe(data)
-        return res.status(200).json({ message: "Plans: ", results })
+        const results = await PlanService.subscribe(data, req.user)
+        return res.status(200).json({ message: "Successfully subscribed ", results })
     } catch (error) {
-        error.code = 401
         next(error)
     }
 }
@@ -82,6 +93,7 @@ const listSubscriptions = async (req, res, next) => {
         return res.status(200).json({ message: "Plans: ", results })
     } catch (error) {
         error.code = 401
+        console.log(error)
         next(error)
     }
 }

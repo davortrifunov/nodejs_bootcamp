@@ -9,6 +9,17 @@ const createPlanSchemaValidation = Joi.object().keys({
         .integer().required(),
 })
 
+
+const editPlanSchemaValidation = Joi.object().keys({
+    title: Joi.string(),
+    description: Joi.string(),
+    startDate: Joi.string(),
+    endDate: Joi.string(),
+    id: Joi.number(),
+
+})
+
 module.exports = {
-    createPlanSchemaValidation
+    createPlanSchemaValidation,
+    editPlanSchemaValidation
 }
