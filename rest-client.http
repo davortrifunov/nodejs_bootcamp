@@ -3,85 +3,89 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "name": "Davor",
-    "lastName": "Tri",
+    "name": "Coach",
+    "lastName": "Testing",
     "dob": "05.02.2003",
-    "email": "dav@email.com",
-    "password":"1234",
+    "email": "coach2@email.com",
+    "password":"1234564",
     "height": "170",
     "weight": "70",
-    "role": "Subscriber"
+    "role": "Coach"
 }
 
 POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
-    "email": "email@email.com",
-    "password":"123"
+    "email": "coach2@email.com",
+    "password":"1234564"
 }
 
 //plans
+//create new plan
 POST http://localhost:3000/plans
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik5hbWUxIiwibGFzdE5hbWUiOiJMYXN0TmFtZTEiLCJkb2IiOiIyMDIzLTEyLTAxVDIzOjAwOjAwLjAwMFoiLCJlbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwiaGVpZ2h0IjoyMDAsIndlaWdodCI6NzAsInJvbGUiOiJDb2FjaCIsImlhdCI6MTY4MDA4NTg0MH0.Uw_XegAFAz5yCgcaPTrkyhUB1Zw-DltpaBKUAxKFcXk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6IkNvYWNoIiwibGFzdE5hbWUiOiJUZXN0aW5nIiwiZG9iIjoiMjAwMy0wNS0wMVQyMjowMDowMC4wMDBaIiwiZW1haWwiOiJjb2FjaDJAZW1haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTY0IiwiaGVpZ2h0IjoxNzAsIndlaWdodCI6NzAsInJvbGUiOiJDb2FjaCIsImlhdCI6MTY4MDM0NDMzMn0.ab8_A47Vh8KjBUa6KVj7cZeUi9ojjRQSb47O7QOrfbA
 
 {
-    "title": "PlanDelete",
-    "description": "Plan2 desc",
+    "title": "Plan323",
+    "description": "Plan323 desc",
     "startDate": "2023-02-12T15:39:06.875Z",
-    "endDate": "2023-10-20T15:39:06.875Z",
-    "userId": "1"
+    "endDate": "2023-10-20T15:39:06.875Z"
 }
 
+//edit plan
 PUT http://localhost:3000/plans
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik5hbWUxIiwibGFzdE5hbWUiOiJMYXN0TmFtZTEiLCJkb2IiOiIyMDIzLTEyLTAxVDIzOjAwOjAwLjAwMFoiLCJlbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwiaGVpZ2h0IjoyMDAsIndlaWdodCI6NzAsInJvbGUiOiJDb2FjaCIsImlhdCI6MTY4MDA4NTg0MH0.Uw_XegAFAz5yCgcaPTrkyhUB1Zw-DltpaBKUAxKFcXk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IlRlc3QiLCJsYXN0TmFtZSI6IlRlc3RpbmciLCJkb2IiOiIyMDAzLTA1LTAxVDIyOjAwOjAwLjAwMFoiLCJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NSIsImhlaWdodCI6MTcwLCJ3ZWlnaHQiOjcwLCJyb2xlIjoiU3Vic2NyaWJlciIsImlhdCI6MTY4MDM0NDA5Nn0.Fe7mHNubhOiJxrBrwadhAaiElNFXumvbPpkOfIUFEbk
 
 {
     "title": "Plan3",
-    "description": "Plan2 desc",
+    "description": "Plan323 desc changed",
     "startDate": "2023-02-12T15:39:06.875Z",
     "endDate": "2023-10-22T15:39:06.875Z",
-    "id": 4
+    "id": 6
 }
 
+//subscribe 
+POST http://localhost:3000/plans/subscribe
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IlRlc3QiLCJsYXN0TmFtZSI6IlRlc3RpbmciLCJkb2IiOiIyMDAzLTA1LTAxVDIyOjAwOjAwLjAwMFoiLCJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NSIsImhlaWdodCI6MTcwLCJ3ZWlnaHQiOjcwLCJyb2xlIjoiU3Vic2NyaWJlciIsImlhdCI6MTY4MDM0NDA5Nn0.Fe7mHNubhOiJxrBrwadhAaiElNFXumvbPpkOfIUFEbk
+
+{
+    "planId": "6"
+}
+
+// List all active plans
 GET http://localhost:3000/plans
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkRhdm9yIiwibGFzdE5hbWUiOiJUcmkiLCJkb2IiOiIyMDAzLTA1LTAxVDIyOjAwOjAwLjAwMFoiLCJlbWFpbCI6ImRhdkBlbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQiLCJoZWlnaHQiOjE3MCwid2VpZ2h0Ijo3MCwicm9sZSI6IlN1YnNjcmliZXIiLCJpYXQiOjE2ODAwODExODl9.JV3rm1MUPTkEqagolTXpioQgnWj6Mv9HSA_mkdMQEdQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IlRlc3QiLCJsYXN0TmFtZSI6IlRlc3RpbmciLCJkb2IiOiIyMDAzLTA1LTAxVDIyOjAwOjAwLjAwMFoiLCJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NSIsImhlaWdodCI6MTcwLCJ3ZWlnaHQiOjcwLCJyb2xlIjoiU3Vic2NyaWJlciIsImlhdCI6MTY4MDM0NDA5Nn0.Fe7mHNubhOiJxrBrwadhAaiElNFXumvbPpkOfIUFEbk
 
-
+// List all active plans by coach
 GET http://localhost:3000/plans/coach
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkRhdm9yIiwibGFzdE5hbWUiOiJUcmkiLCJkb2IiOiIyMDAzLTA1LTAxVDIyOjAwOjAwLjAwMFoiLCJlbWFpbCI6ImRhdkBlbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQiLCJoZWlnaHQiOjE3MCwid2VpZ2h0Ijo3MCwicm9sZSI6IlN1YnNjcmliZXIiLCJpYXQiOjE2ODAwODExODl9.JV3rm1MUPTkEqagolTXpioQgnWj6Mv9HSA_mkdMQEdQ
 
 {
-    "id":1
+    "id":5
 }
 
+// Delete plan
 DELETE http://localhost:3000/plans
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik5hbWUxIiwibGFzdE5hbWUiOiJMYXN0TmFtZTEiLCJkb2IiOiIyMDIzLTEyLTAxVDIzOjAwOjAwLjAwMFoiLCJlbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwiaGVpZ2h0IjoyMDAsIndlaWdodCI6NzAsInJvbGUiOiJDb2FjaCIsImlhdCI6MTY4MDA4NTg0MH0.Uw_XegAFAz5yCgcaPTrkyhUB1Zw-DltpaBKUAxKFcXk
 
 {
-    "id": "4"
+    "id": "6"
 } 
 
-
-POST http://localhost:3000/plans/subscribe
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkRhdm9yIiwibGFzdE5hbWUiOiJUcmkiLCJkb2IiOiIyMDAzLTA1LTAxVDIyOjAwOjAwLjAwMFoiLCJlbWFpbCI6ImRhdkBlbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQiLCJoZWlnaHQiOjE3MCwid2VpZ2h0Ijo3MCwicm9sZSI6IlN1YnNjcmliZXIiLCJpYXQiOjE2ODAwODExODl9.JV3rm1MUPTkEqagolTXpioQgnWj6Mv9HSA_mkdMQEdQ
-
-{
-    "planId": "4"
-}
-
+// List all plans subscribed to
 GET http://localhost:3000/plans/subscribe
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkRhdm9yIiwibGFzdE5hbWUiOiJUcmkiLCJkb2IiOiIyMDAzLTA1LTAxVDIyOjAwOjAwLjAwMFoiLCJlbWFpbCI6ImRhdkBlbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQiLCJoZWlnaHQiOjE3MCwid2VpZ2h0Ijo3MCwicm9sZSI6IlN1YnNjcmliZXIiLCJpYXQiOjE2ODAwODExODl9.JV3rm1MUPTkEqagolTXpioQgnWj6Mv9HSA_mkdMQEdQ
 
 {
-    "id": "2"
+    "id": "3"
 }
 
 
@@ -89,11 +93,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6I
 //reviews
 POST http://localhost:3000/reviews
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkRhdm9yIiwibGFzdE5hbWUiOiJUcmkiLCJkb2IiOiIyMDAzLTA1LTAxVDIyOjAwOjAwLjAwMFoiLCJlbWFpbCI6ImRhdkBlbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQiLCJoZWlnaHQiOjE3MCwid2VpZ2h0Ijo3MCwicm9sZSI6IlN1YnNjcmliZXIiLCJpYXQiOjE2ODAwODExODl9.JV3rm1MUPTkEqagolTXpioQgnWj6Mv9HSA_mkdMQEdQ
 
 {
-    "comment": "Comment 5",
+    "comment": "Comment +",
     "rating": "3",
-    "planId": "3"
+    "planId": "6"
+}
+
+GET http://localhost:3000/reviews/subscriber
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkRhdm9yIiwibGFzdE5hbWUiOiJUcmkiLCJkb2IiOiIyMDAzLTA1LTAxVDIyOjAwOjAwLjAwMFoiLCJlbWFpbCI6ImRhdkBlbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQiLCJoZWlnaHQiOjE3MCwid2VpZ2h0Ijo3MCwicm9sZSI6IlN1YnNjcmliZXIiLCJpYXQiOjE2ODAwODExODl9.JV3rm1MUPTkEqagolTXpioQgnWj6Mv9HSA_mkdMQEdQ
+
+{
+    "id": "6"
 }
 
 GET http://localhost:3000/reviews/coach
@@ -101,6 +114,6 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkRhdm9yIiwibGFzdE5hbWUiOiJUcmkiLCJkb2IiOiIyMDAzLTA1LTAxVDIyOjAwOjAwLjAwMFoiLCJlbWFpbCI6ImRhdkBlbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQiLCJoZWlnaHQiOjE3MCwid2VpZ2h0Ijo3MCwicm9sZSI6IlN1YnNjcmliZXIiLCJpYXQiOjE2ODAwODExODl9.JV3rm1MUPTkEqagolTXpioQgnWj6Mv9HSA_mkdMQEdQ
 
 {
-    "id" : "1"
+    "id" : "3"
 }
 

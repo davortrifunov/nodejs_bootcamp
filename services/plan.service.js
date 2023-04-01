@@ -1,14 +1,14 @@
 const moment = require('moment')
 const prisma = require('../prisma/prisma-client')
 
-const create = async (data) => {
+const create = async (data, coach) => {
     const results = await prisma.plan.create({
         data: {
             title: data.title,
             description: data.description,
             startDate: new Date(data.startDate),
             endDate: new Date(data.endDate),
-            userId: parseInt(data.userId)
+            userId: parseInt(coach.id)
         }
     })
 

@@ -6,7 +6,7 @@ const createPlan = async (req, res, next) => {
             return res.status(400).json({ message: "Subscribers cannot create a plan" })
         }
         const data = req.body
-        const results = await PlanService.create(data)
+        const results = await PlanService.create(data, req.user)
         return res.status(200).json({ message: "Plan was created", results })
     } catch (error) {
         error.code = 401
